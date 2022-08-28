@@ -21,7 +21,8 @@
                 Clicked="OnStartStop"
                 x:Name="startStopButton" />
 
-            <VerticalStackLayout>
+            <VerticalStackLayout
+                x:Name="adjustTimerButtonsArea">
                 <Button
                     Text="Reset"
                     Clicked="OnReset"
@@ -30,7 +31,7 @@
                 <Button
                     x:Name="adjustTimerBtn"
                     Text="Adjust Timer"
-                    Clicked="OnAdjustButtons" />
+                    Clicked="OnAdjustClock" />
             </VerticalStackLayout>
 
             <VerticalStackLayout

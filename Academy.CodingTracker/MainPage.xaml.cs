@@ -45,7 +45,12 @@ public partial class MainPage : ContentPage
 
     private void OnAdjustClock(object sender, EventArgs e)
     {
-        isEditing = true;
+        adjustTimeArea.IsVisible = true;
+    }
+
+    private void OnCancelAdjustClock(object sender, EventArgs e)
+    {
+        adjustTimeArea.IsVisible = false;
     }
 
     private void OnAddHours(object sender, EventArgs e)
