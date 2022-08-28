@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Academy.CodingTracker.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout x:Name="MainButtonsArea">
+            <Label 
+                HorizontalOptions="Center"
+                FontSize="44"
+                Text="Todays Hours" />
+
+            <Label 
+                x:Name="timeLabel"
+                HorizontalOptions="Center"
+                FontSize="88"
+                Text="00:00:00" />
+
+            <Button
+                Text="Start"
+                Clicked="OnStartStop"
+                x:Name="startStopButton" />
+
+            <VerticalStackLayout>
+                <Button
+                    Text="Reset"
+                    Clicked="OnReset"
+                    x:Name="resetButton" />
+
+                <Button
+                    x:Name="adjustTimerBtn"
+                    Text="Adjust Timer"
+                    Clicked="OnAdjustButtons" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout
+                IsVisible="false"
+                x:Name ="adjustTimeArea">
+                <Grid 
+                    RowDefinitions="50,50"
+                    ColumnDefinitions="*,50,50,50">
+
+                    <Label 
+                        HorizontalOptions="Center"
+                        FontSize="20"
+                        Text="Hours" />
+                    
+                    <Button
+                        Grid.Column="1"
+                        Text="+"
+                        FontSize="40"
+                        Clicked="OnAddHours"/>
+                    
+                    <Button
+                        Grid.Column="2"
+                        Text="-"
+                        FontSize="32"
+                        Clicked="OnSubtractHours"/>
+
+                    <Label 
+                        x:Name="hoursToAdjustLabel"
+                        Grid.Column="3"
+                        HorizontalOptions="Center"
+                        FontSize="20"
+                        Text="0"/>
+
+
+                    <Label 
+                        Grid.Row="1"
+                        HorizontalOptions="Center"
+                        FontSize="20"
+                        Text="Minutes" />
+
+                    <Button
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Text="+"
+                        FontSize="32"
+                        Clicked="OnAddMinutes"/>
+
+                    <Button
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Text="-"
+                        FontSize="32"
+                        Clicked="OnSubtractMinutes"/>
+
+                    <Label 
+                        x:Name="minutesToAdjustLabel"
+                        Grid.Row="1"
+                        Grid.Column="3"
+                        HorizontalOptions="Center"
+                        FontSize="20"
+                        Text="0" />
+
+                </Grid>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
