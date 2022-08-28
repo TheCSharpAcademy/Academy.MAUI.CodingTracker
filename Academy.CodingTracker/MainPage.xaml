@@ -16,29 +16,31 @@
                 FontSize="88"
                 Text="00:00:00" />
 
-            <Button
+            <VerticalStackLayout
+                x:Name="mainButtonsArea">
+
+                <Button
                 Text="Start"
                 Clicked="OnStartStop"
                 x:Name="startStopButton" />
 
-            <VerticalStackLayout
-                x:Name="adjustTimerButtonsArea">
                 <Button
                     Text="Reset"
                     Clicked="OnReset"
                     x:Name="resetButton" />
+            </VerticalStackLayout>
 
-                <Button
+
+            <Button
                     x:Name="adjustTimerBtn"
                     Text="Adjust Timer"
                     Clicked="OnAdjustClock" />
-            </VerticalStackLayout>
 
             <VerticalStackLayout
                 IsVisible="false"
                 x:Name ="adjustTimeArea">
                 <Grid 
-                    RowDefinitions="50,50"
+                    RowDefinitions="50,50,50"
                     ColumnDefinitions="*,50,50,50">
 
                     <Label 
@@ -93,6 +95,12 @@
                         HorizontalOptions="Center"
                         FontSize="20"
                         Text="0" />
+                    <Button
+                        Grid.Row="2"
+                        Text="Save"
+                        BackgroundColor="Green"
+                        FontSize="32"
+                        Clicked="OnSaveAdjustTimer"/>
 
                 </Grid>
             </VerticalStackLayout>

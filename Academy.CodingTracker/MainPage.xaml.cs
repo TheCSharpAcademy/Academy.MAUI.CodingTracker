@@ -5,7 +5,6 @@ public partial class MainPage : ContentPage
     private TimeOnly time = new();
 
     private bool isRunning;
-    private bool isEditing;
 
     private int MinutesToAdjust = 0;
     private int HoursToAdjust = 0;
@@ -45,36 +44,68 @@ public partial class MainPage : ContentPage
 
     private void OnAdjustClock(object sender, EventArgs e)
     {
-        adjustTimeArea.IsVisible = true;
-    }
+        adjustTimeArea.IsVisible = !adjustTimeArea.IsVisible;
+        mainButtonsArea.IsVisible = !mainButtonsArea.IsVisible;
 
-    private void OnCancelAdjustClock(object sender, EventArgs e)
-    {
-        adjustTimeArea.IsVisible = false;
+        adjustTimerBtn.Text = adjustTimeArea.IsVisible ? "Cancel" : "Adjust Time";
+
+        if (adjustTimeArea.IsVisible)
+        {
+            MinutesToAdjust = 0;
+            HoursToAdjust = 0;
+            hoursToAdjustLabel.Text = HoursToAdjust.ToString();
+            minutesToAdjustLabel.Text = MinutesToAdjust.ToString();
+        }
     }
 
     private void OnAddHours(object sender, EventArgs e)
     {
+        if (HoursToAdjust + 1 > 24)
+            return;
+
         HoursToAdjust += 1;
         hoursToAdjustLabel.Text = HoursToAdjust.ToString();
     }
 
     private void OnSubtractHours(object sender, EventArgs e)
     {
+        if (HoursToAdjust - 1 < -23)
+            return;
+
         HoursToAdjust -= 1;
         hoursToAdjustLabel.Text = HoursToAdjust.ToString();
     }
 
     private void OnAddMinutes(object sender, EventArgs e)
     {
+        if (MinutesToAdjust + 1 > 59)
+            return;
+
         MinutesToAdjust += 1;
         minutesToAdjustLabel.Text = MinutesToAdjust.ToString();
     }
 
     private void OnSubtractMinutes(object sender, EventArgs e)
     {
+        if (MinutesToAdjust - 1 < -59)
+            return;
+
         MinutesToAdjust -= 1;
         minutesToAdjustLabel.Text = MinutesToAdjust.ToString();
+    }
+
+    private async void OnSaveAdjustTimer(object sender, EventArgs e)
+    {   
+        time = time.Add(TimeSpan.FromHours(HoursToAdjust) + TimeSpan.FromMinutes(MinutesToAdjust));
+        SetTime();
+
+        MinutesToAdjust = 0;
+        HoursToAdjust = 0;
+        hoursToAdjustLabel.Text = HoursToAdjust.ToString();
+        minutesToAdjustLabel.Text = MinutesToAdjust.ToString();
+        adjustTimeArea.IsVisible = false;
+        mainButtonsArea.IsVisible = true;
+        adjustTimerBtn.Text = "Adjust Timer";
     }
 }
 
