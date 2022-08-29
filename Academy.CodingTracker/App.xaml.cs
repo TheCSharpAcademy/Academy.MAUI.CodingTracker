@@ -1,4 +1,9 @@
 ﻿using Academy.CodingTracker.Data;
+#if WINDOWS
+using Microsoft.UI;
+using Microsoft.UI.Windowing;
+using Windows.Graphics;
+#endif
 
 namespace Academy.CodingTracker;
 
@@ -13,5 +18,6 @@ public partial class App : Application
         MainPage = new AppShell();
 
         CodingRepository = codingRepository;
+
     }
 }

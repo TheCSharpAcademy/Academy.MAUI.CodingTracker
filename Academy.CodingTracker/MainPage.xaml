@@ -3,41 +3,46 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Academy.CodingTracker.MainPage">
     <ScrollView>
-        <HorizontalStackLayout>
-            <VerticalStackLayout>
-                <Label 
-                HorizontalOptions="Center"
-                FontSize="44"
-                Text="Todays Hours" />
-
+        <HorizontalStackLayout Padding="10">
+            <VerticalStackLayout Padding="5">
                 <Label 
                 x:Name="timeLabel"
                 HorizontalOptions="Center"
                 FontSize="88"
                 Text="00:00:00" />
 
+                <DatePicker 
+                    MinimumWidthRequest="300"
+                    DateSelected="OnDateSelected"/>
+
                 <VerticalStackLayout
-                x:Name="mainButtonsArea">
+                    x:Name="mainButtonsArea">
 
-                    <Button
-                Text="Start"
-                Clicked="OnStartStop"
-                x:Name="startStopButton" />
+                    <Grid ColumnDefinitions="*,*,*">
+                        <Button
+                        Text="Start"
+                        Clicked="OnStartStop"
+                        x:Name="startStopButton" />
 
-                    <Button
-                    Text="Reset"
-                    Clicked="OnReset"
-                    x:Name="resetButton" />
-                    <Button
-                    Text="Save Day"
-                    Clicked="OnSaveDay"
-                    x:Name="saveDayButton" />
+                        <Button
+                        Grid.Column="1"
+                        Text="Reset"
+                        Clicked="OnReset"
+                        x:Name="resetButton" />
+
+                        <Button
+                        Grid.Column="2"
+                        Text="SaveDay"
+                        Clicked="OnSaveDay"
+                        x:Name="saveDayButton" />
+                    </Grid>
 
                     <Label 
-                    x:Name="errorMessageLabel"
-                    HorizontalOptions="Center"
-                    FontSize="30"
-                    TextColor="Red"/>
+                        x:Name="errorMessageLabel"
+                        HorizontalOptions="Center"
+                        FontSize="30"
+                        TextColor="Red"/>
+                    
                 </VerticalStackLayout>
 
                 <Button
@@ -114,30 +119,26 @@
                     </Grid>
                 </VerticalStackLayout>
             </VerticalStackLayout>
-            <VerticalStackLayout>
-
-                <VerticalStackLayout>
-                    <CollectionView x:Name="codingList">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid ColumnDefinitions="*,*,*,*"
-                              RowDefinitions="50">
-
-                                    <Label Grid.Column="0" Text="{Binding Date, StringFormat='{0:d}'}" FontSize="20"/>
-                                    <Label Grid.Column="1" Text="{Binding Duration}" FontSize="20"/>
-                                    <ImageButton 
+            <VerticalStackLayout Padding="5">
+                <CollectionView x:Name="codingList" MinimumWidthRequest="600">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="200,200,100"
+                                    RowDefinitions="50">
+                                <Label VerticalTextAlignment="Center" Grid.Column="0" Text="{Binding Date, StringFormat='{0:d}'}" FontSize="20" MinimumWidthRequest="300"/>
+                                <Label VerticalTextAlignment="Center" Grid.Column="1" Text="{Binding Duration}" FontSize="20"/>
+                                <ImageButton 
                                 Source="trash.png" 
-                                Grid.Column="3" 
+                                Grid.Column="2" 
                                 BindingContext="{Binding Id}"  
                                 Clicked="OnDelete"
-                                MinimumHeightRequest="40"
-                                MaximumWidthRequest="70"
+                                MinimumHeightRequest="20"
+                                MaximumWidthRequest="35"
                                />
-                                </Grid>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </VerticalStackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </VerticalStackLayout>
         </HorizontalStackLayout>
     </ScrollView>

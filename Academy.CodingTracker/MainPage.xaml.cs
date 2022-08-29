@@ -48,6 +48,7 @@ public partial class MainPage : ContentPage
 
     private void OnAdjustClock(object sender, EventArgs e)
     {
+        errorMessageLabel.Text = "";
         adjustTimeArea.IsVisible = !adjustTimeArea.IsVisible;
         mainButtonsArea.IsVisible = !mainButtonsArea.IsVisible;
 
@@ -142,6 +143,12 @@ public partial class MainPage : ContentPage
         App.CodingRepository.Delete((int)button.BindingContext);
 
         codingList.ItemsSource = App.CodingRepository.GetAll();
+    }
+
+    private void OnDateSelected(object sender, EventArgs e)
+    {
+        DatePicker datePicker = (DatePicker)sender;
+        codingDate = datePicker.Date;
     }
 }
 
