@@ -4,16 +4,19 @@
              x:Class="Academy.CodingTracker.MainPage">
     <ScrollView>
         <HorizontalStackLayout Padding="10">
-            <VerticalStackLayout Padding="5">
+            <VerticalStackLayout Padding="5"
+                                 HorizontalOptions="Center"
+                                 Spacing="10">
                 <Label 
                 x:Name="timeLabel"
                 HorizontalOptions="Center"
-                FontSize="88"
+                FontSize="68"
                 Text="00:00:00" />
 
                 <DatePicker 
                     MinimumWidthRequest="300"
-                    DateSelected="OnDateSelected"/>
+                    DateSelected="OnDateSelected"
+                    HorizontalOptions="Center"/>
 
                 <VerticalStackLayout
                     x:Name="mainButtonsArea">
@@ -42,7 +45,7 @@
                         HorizontalOptions="Center"
                         FontSize="30"
                         TextColor="Red"/>
-                    
+
                 </VerticalStackLayout>
 
                 <Button
@@ -123,11 +126,21 @@
                 <CollectionView x:Name="codingList" MinimumWidthRequest="600">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid ColumnDefinitions="200,200,100"
-                                    RowDefinitions="50">
-                                <Label VerticalTextAlignment="Center" Grid.Column="0" Text="{Binding Date, StringFormat='{0:d}'}" FontSize="20" MinimumWidthRequest="300"/>
-                                <Label VerticalTextAlignment="Center" Grid.Column="1" Text="{Binding Duration}" FontSize="20"/>
-                                <ImageButton 
+                            <Frame BorderColor="Gray"
+                                   CornerRadius="5"
+                                   Padding="10,0"
+                                   Margin="1"
+                                   HasShadow="True">
+                                <Grid ColumnDefinitions="200,200,100"
+                                    RowDefinitions="70">
+                                    <VerticalStackLayout
+                                        VerticalOptions="Center">
+                                        <Label VerticalTextAlignment="Center" Grid.Column="0" Text="{Binding Date, StringFormat='{0:yyy}'}" FontSize="12" />
+                                        <Label VerticalTextAlignment="Center" Grid.Column="0" Text="{Binding Date, StringFormat='{0:ddd,29}'}" FontSize="20" />
+                                        <Label VerticalTextAlignment="Center" Grid.Column="0" Text="{Binding Date, StringFormat='{0:MMM}'}" FontSize="12" />
+                                    </VerticalStackLayout>
+                                    <Label VerticalTextAlignment="Center" Grid.Column="1" Text="{Binding Duration}" FontSize="20"/>
+                                    <ImageButton 
                                 Source="trash.png" 
                                 Grid.Column="2" 
                                 BindingContext="{Binding Id}"  
@@ -135,7 +148,8 @@
                                 MinimumHeightRequest="20"
                                 MaximumWidthRequest="35"
                                />
-                            </Grid>
+                                </Grid>
+                            </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
