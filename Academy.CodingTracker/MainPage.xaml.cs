@@ -1,4 +1,6 @@
-﻿namespace Academy.CodingTracker;
+﻿using Academy.CodingTracker.Models;
+
+namespace Academy.CodingTracker;
 
 public partial class MainPage : ContentPage
 {
@@ -8,10 +10,12 @@ public partial class MainPage : ContentPage
 
     private int MinutesToAdjust = 0;
     private int HoursToAdjust = 0;
+    private DateTime codingDate = DateTime.Today;
 
     public MainPage()
     {
         InitializeComponent();
+        codingList.ItemsSource = App.CodingRepository.GetAll();
     }
 
     private async void OnStartStop(object sender, EventArgs e)
@@ -95,7 +99,7 @@ public partial class MainPage : ContentPage
     }
 
     private async void OnSaveAdjustTimer(object sender, EventArgs e)
-    {   
+    {
         time = time.Add(TimeSpan.FromHours(HoursToAdjust) + TimeSpan.FromMinutes(MinutesToAdjust));
         SetTime();
 
@@ -106,6 +110,38 @@ public partial class MainPage : ContentPage
         adjustTimeArea.IsVisible = false;
         mainButtonsArea.IsVisible = true;
         adjustTimerBtn.Text = "Adjust Timer";
+    }
+
+    private void OnSaveDay(object sender, EventArgs e)
+    {
+        if (App.CodingRepository.GetAll().FirstOrDefault(x => x.Date == codingDate) != null)
+        {
+            errorMessageLabel.Text = "Can't have two records with the same date";
+            return;
+        };
+
+        errorMessageLabel.Text = "";
+
+        App.CodingRepository.Add(new CodingDay
+        {
+            Duration = time.ToTimeSpan(),
+            Date = codingDate
+        });
+
+        codingList.ItemsSource = App.CodingRepository.GetAll();
+
+        time = new TimeOnly();
+        isRunning = !isRunning;
+        SetTime();
+    }
+
+    private void OnDelete(object sender, EventArgs e)
+    {
+        ImageButton button = (ImageButton)sender;
+
+        App.CodingRepository.Delete((int)button.BindingContext);
+
+        codingList.ItemsSource = App.CodingRepository.GetAll();
     }
 }
 

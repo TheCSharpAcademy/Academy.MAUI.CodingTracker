@@ -2,65 +2,74 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Academy.CodingTracker.MainPage">
-
     <ScrollView>
-        <VerticalStackLayout x:Name="MainButtonsArea">
-            <Label 
+        <HorizontalStackLayout>
+            <VerticalStackLayout>
+                <Label 
                 HorizontalOptions="Center"
                 FontSize="44"
                 Text="Todays Hours" />
 
-            <Label 
+                <Label 
                 x:Name="timeLabel"
                 HorizontalOptions="Center"
                 FontSize="88"
                 Text="00:00:00" />
 
-            <VerticalStackLayout
+                <VerticalStackLayout
                 x:Name="mainButtonsArea">
 
-                <Button
+                    <Button
                 Text="Start"
                 Clicked="OnStartStop"
                 x:Name="startStopButton" />
 
-                <Button
+                    <Button
                     Text="Reset"
                     Clicked="OnReset"
                     x:Name="resetButton" />
-            </VerticalStackLayout>
+                    <Button
+                    Text="Save Day"
+                    Clicked="OnSaveDay"
+                    x:Name="saveDayButton" />
 
+                    <Label 
+                    x:Name="errorMessageLabel"
+                    HorizontalOptions="Center"
+                    FontSize="30"
+                    TextColor="Red"/>
+                </VerticalStackLayout>
 
-            <Button
-                    x:Name="adjustTimerBtn"
-                    Text="Adjust Timer"
-                    Clicked="OnAdjustClock" />
+                <Button
+                x:Name="adjustTimerBtn"
+                Text="Adjust Timer"
+                Clicked="OnAdjustClock" />
 
-            <VerticalStackLayout
+                <VerticalStackLayout
                 IsVisible="false"
                 x:Name ="adjustTimeArea">
-                <Grid 
+                    <Grid 
                     RowDefinitions="50,50,50"
                     ColumnDefinitions="*,50,50,50">
 
-                    <Label 
+                        <Label 
                         HorizontalOptions="Center"
                         FontSize="20"
                         Text="Hours" />
-                    
-                    <Button
+
+                        <Button
                         Grid.Column="1"
                         Text="+"
                         FontSize="40"
                         Clicked="OnAddHours"/>
-                    
-                    <Button
+
+                        <Button
                         Grid.Column="2"
                         Text="-"
                         FontSize="32"
                         Clicked="OnSubtractHours"/>
 
-                    <Label 
+                        <Label 
                         x:Name="hoursToAdjustLabel"
                         Grid.Column="3"
                         HorizontalOptions="Center"
@@ -68,43 +77,68 @@
                         Text="0"/>
 
 
-                    <Label 
+                        <Label 
                         Grid.Row="1"
                         HorizontalOptions="Center"
                         FontSize="20"
                         Text="Minutes" />
 
-                    <Button
+                        <Button
                         Grid.Row="1"
                         Grid.Column="1"
                         Text="+"
                         FontSize="32"
                         Clicked="OnAddMinutes"/>
 
-                    <Button
+                        <Button
                         Grid.Row="1"
                         Grid.Column="2"
                         Text="-"
                         FontSize="32"
                         Clicked="OnSubtractMinutes"/>
 
-                    <Label 
+                        <Label 
                         x:Name="minutesToAdjustLabel"
                         Grid.Row="1"
                         Grid.Column="3"
                         HorizontalOptions="Center"
                         FontSize="20"
                         Text="0" />
-                    <Button
+                        <Button
                         Grid.Row="2"
                         Text="Save"
                         BackgroundColor="Green"
                         FontSize="32"
                         Clicked="OnSaveAdjustTimer"/>
 
-                </Grid>
+                    </Grid>
+                </VerticalStackLayout>
             </VerticalStackLayout>
-        </VerticalStackLayout>
-    </ScrollView>
+            <VerticalStackLayout>
 
+                <VerticalStackLayout>
+                    <CollectionView x:Name="codingList">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="*,*,*,*"
+                              RowDefinitions="50">
+
+                                    <Label Grid.Column="0" Text="{Binding Date, StringFormat='{0:d}'}" FontSize="20"/>
+                                    <Label Grid.Column="1" Text="{Binding Duration}" FontSize="20"/>
+                                    <ImageButton 
+                                Source="trash.png" 
+                                Grid.Column="3" 
+                                BindingContext="{Binding Id}"  
+                                Clicked="OnDelete"
+                                MinimumHeightRequest="40"
+                                MaximumWidthRequest="70"
+                               />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </HorizontalStackLayout>
+    </ScrollView>
 </ContentPage>

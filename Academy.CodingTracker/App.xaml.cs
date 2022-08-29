@@ -1,11 +1,17 @@
-﻿namespace Academy.CodingTracker;
+﻿using Academy.CodingTracker.Data;
+
+namespace Academy.CodingTracker;
 
 public partial class App : Application
 {
-	public App()
-	{
-		InitializeComponent();
+    public static CodingRepository CodingRepository { get; private set; }
 
-		MainPage = new AppShell();
-	}
+    public App(CodingRepository codingRepository)
+    {
+        InitializeComponent();
+
+        MainPage = new AppShell();
+
+        CodingRepository = codingRepository;
+    }
 }

@@ -1,4 +1,6 @@
-﻿namespace Academy.CodingTracker;
+﻿using Academy.CodingTracker.Data;
+
+namespace Academy.CodingTracker;
 
 public static class MauiProgram
 {
@@ -13,6 +15,10 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
-		return builder.Build();
+        string dbPath = Path.Combine(FileSystem.AppDataDirectory, "coding.db");
+
+        builder.Services.AddSingleton(s => ActivatorUtilities.CreateInstance<CodingRepository>(s, dbPath));
+
+        return builder.Build();
 	}
 }
