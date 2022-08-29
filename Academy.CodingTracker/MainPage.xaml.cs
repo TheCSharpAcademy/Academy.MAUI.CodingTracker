@@ -5,23 +5,36 @@ namespace Academy.CodingTracker;
 public partial class MainPage : ContentPage
 {
     private TimeOnly time = new();
-
     private bool isRunning;
 
     private int MinutesToAdjust = 0;
     private int HoursToAdjust = 0;
     private DateTime codingDate = DateTime.Today;
 
+    List<CodingDay> codingDayList;
+
     public MainPage()
     {
+        codingDayList = App.CodingRepository.GetAll();
         InitializeComponent();
-        codingList.ItemsSource = App.CodingRepository.GetAll();
+        codingList.ItemsSource = codingDayList;
+
+        PopulateTotals();
     }
+
+    private void PopulateTotals()
+    {
+        weekTotal.Text = App.CodingService.GetTotalTime(codingDayList, "week").ToString();
+        monthTotal.Text = App.CodingService.GetTotalTime(codingDayList, "month").ToString();
+        yearTotal.Text = App.CodingService.GetTotalTime(codingDayList, "year").ToString();
+    }
+
+    #region Timer Controls
 
     private async void OnStartStop(object sender, EventArgs e)
     {
         isRunning = !isRunning;
-        startStopButton.Text = isRunning ? "Pause" : "Play";
+        startStopButton.Source = isRunning ? "pause.png" : "play.png";
 
         while (isRunning)
         {
@@ -46,6 +59,39 @@ public partial class MainPage : ContentPage
         SetTime();
     }
 
+    #endregion
+
+    private void OnSaveDay(object sender, EventArgs e)
+    {
+        if (App.CodingRepository.GetAll().FirstOrDefault(x => x.Date == codingDate) != null)
+        {
+            errorMessageLabel.Text = "Can't have two records with the same date";
+            return;
+        };
+
+        errorMessageLabel.Text = "";
+
+        App.CodingRepository.Add(new CodingDay
+        {
+            Duration = time.ToTimeSpan(),
+            Date = codingDate
+        });
+
+        codingList.ItemsSource = App.CodingRepository.GetAll();
+        PopulateTotals();
+
+        time = new TimeOnly();
+        isRunning = !isRunning;
+        SetTime();
+    }
+
+    private void OnDateSelected(object sender, EventArgs e)
+    {
+        DatePicker datePicker = (DatePicker)sender;
+        codingDate = datePicker.Date;
+    }
+
+    #region Adjust Timer
     private void OnAdjustClock(object sender, EventArgs e)
     {
         errorMessageLabel.Text = "";
@@ -113,28 +159,7 @@ public partial class MainPage : ContentPage
         adjustTimerBtn.Text = "Adjust Timer";
     }
 
-    private void OnSaveDay(object sender, EventArgs e)
-    {
-        if (App.CodingRepository.GetAll().FirstOrDefault(x => x.Date == codingDate) != null)
-        {
-            errorMessageLabel.Text = "Can't have two records with the same date";
-            return;
-        };
-
-        errorMessageLabel.Text = "";
-
-        App.CodingRepository.Add(new CodingDay
-        {
-            Duration = time.ToTimeSpan(),
-            Date = codingDate
-        });
-
-        codingList.ItemsSource = App.CodingRepository.GetAll();
-
-        time = new TimeOnly();
-        isRunning = !isRunning;
-        SetTime();
-    }
+    #endregion Adjust Timer
 
     private void OnDelete(object sender, EventArgs e)
     {
@@ -143,12 +168,6 @@ public partial class MainPage : ContentPage
         App.CodingRepository.Delete((int)button.BindingContext);
 
         codingList.ItemsSource = App.CodingRepository.GetAll();
-    }
-
-    private void OnDateSelected(object sender, EventArgs e)
-    {
-        DatePicker datePicker = (DatePicker)sender;
-        codingDate = datePicker.Date;
     }
 }
 

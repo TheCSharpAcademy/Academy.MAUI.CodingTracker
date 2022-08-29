@@ -7,77 +7,87 @@
             <VerticalStackLayout Padding="5"
                                  HorizontalOptions="Center"
                                  Spacing="10">
-                <Label 
-                x:Name="timeLabel"
-                HorizontalOptions="Center"
-                FontSize="68"
-                Text="00:00:00" />
-
-                <DatePicker 
-                    MinimumWidthRequest="300"
-                    DateSelected="OnDateSelected"
-                    HorizontalOptions="Center"/>
-
-                <VerticalStackLayout
-                    x:Name="mainButtonsArea">
-
-                    <Grid ColumnDefinitions="*,*,*">
-                        <Button
-                        Text="Start"
-                        Clicked="OnStartStop"
-                        x:Name="startStopButton" />
-
-                        <Button
-                        Grid.Column="1"
-                        Text="Reset"
-                        Clicked="OnReset"
-                        x:Name="resetButton" />
-
-                        <Button
-                        Grid.Column="2"
-                        Text="SaveDay"
-                        Clicked="OnSaveDay"
-                        x:Name="saveDayButton" />
-                    </Grid>
-
-                    <Label 
-                        x:Name="errorMessageLabel"
+                <Border Padding="10"
+                    WidthRequest="400">
+                    <VerticalStackLayout>
+						<Label 
+                        x:Name="timeLabel"
                         HorizontalOptions="Center"
-                        FontSize="30"
-                        TextColor="Red"/>
+                        FontSize="68"
+                        FontFamily="AlbertSansBold"
+                        Text="00:00:00" />
 
-                </VerticalStackLayout>
+						<DatePicker 
+                        MinimumWidthRequest="300"
+                        DateSelected="OnDateSelected"
+                        HorizontalOptions="Center"/>
 
-                <Button
-                x:Name="adjustTimerBtn"
-                Text="Adjust Timer"
-                Clicked="OnAdjustClock" />
+                        <VerticalStackLayout
+                        x:Name="mainButtonsArea">
 
-                <VerticalStackLayout
-                IsVisible="false"
-                x:Name ="adjustTimeArea">
-                    <Grid 
-                    RowDefinitions="50,50,50"
-                    ColumnDefinitions="*,50,50,50">
+                            <Grid ColumnDefinitions="*,*,*">
+                                <ImageButton 
+                                x:Name="startStopButton"
+                                Source="play.png" 
+                                Clicked="OnStartStop"
+                                MinimumHeightRequest="20"
+                                MaximumWidthRequest="35"/>
 
-                        <Label 
-                        HorizontalOptions="Center"
-                        FontSize="20"
-                        Text="Hours" />
+                                <ImageButton 
+                                Grid.Column="1"
+                                x:Name="resetButton"
+                                Source="reset.png"
+                                Clicked="OnReset"
+                                MinimumHeightRequest="20"
+                                MaximumWidthRequest="25"/>
+
+                                <ImageButton 
+                                Grid.Column="2"
+                                x:Name="saveDayButton"
+                                Source="save.png"
+                                Clicked="OnSaveDay"
+                                MinimumHeightRequest="20"
+                                MaximumWidthRequest="35"/>
+                            </Grid>
+
+                            <Label 
+                            x:Name="errorMessageLabel"
+                            HorizontalOptions="Center"
+                            FontSize="20"
+                            TextColor="Red"/>
+
+                        </VerticalStackLayout>
 
                         <Button
-                        Grid.Column="1"
-                        Text="+"
-                        FontSize="40"
-                        Clicked="OnAddHours"/>
+                        x:Name="adjustTimerBtn"
+                        Text="Adjust Timer"
+                        Clicked="OnAdjustClock" />
+                        <VerticalStackLayout
+                        IsVisible="false"
+                        x:Name ="adjustTimeArea">
 
-                        <Button
+							<Grid 
+                            RowDefinitions="50,50,50"
+                            ColumnDefinitions="*,50,50,50">
+
+                                <Label 
+                                HorizontalOptions="Center"
+                                FontSize="20"
+                                Text="Hours" />
+
+                                <Button
+                                Grid.Column="1"
+                                Text="+"
+                                FontSize="40"
+                                Clicked="OnAddHours"/>
+
+                                <Button
                         Grid.Column="2"
                         Text="-"
                         FontSize="32"
                         Clicked="OnSubtractHours"/>
 
-                        <Label 
+                                <Label 
                         x:Name="hoursToAdjustLabel"
                         Grid.Column="3"
                         HorizontalOptions="Center"
@@ -85,75 +95,147 @@
                         Text="0"/>
 
 
-                        <Label 
+                                <Label 
                         Grid.Row="1"
                         HorizontalOptions="Center"
                         FontSize="20"
                         Text="Minutes" />
 
-                        <Button
+                                <Button
                         Grid.Row="1"
                         Grid.Column="1"
                         Text="+"
                         FontSize="32"
                         Clicked="OnAddMinutes"/>
 
-                        <Button
+                                <Button
                         Grid.Row="1"
                         Grid.Column="2"
                         Text="-"
                         FontSize="32"
                         Clicked="OnSubtractMinutes"/>
 
-                        <Label 
+                                <Label 
                         x:Name="minutesToAdjustLabel"
                         Grid.Row="1"
                         Grid.Column="3"
                         HorizontalOptions="Center"
                         FontSize="20"
                         Text="0" />
-                        <Button
+                                <Button
                         Grid.Row="2"
                         Text="Save"
                         BackgroundColor="Green"
                         FontSize="32"
                         Clicked="OnSaveAdjustTimer"/>
 
+                            </Grid>
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border Padding="10">
+                    <Grid 
+                    ColumnDefinitions="*,*"
+                    RowDefinitions="*,*,*">
+
+                        <Label 
+                    FontSize="22"
+                    Text="Week Total" />
+
+                        <Label 
+                    Grid.Column="1"
+                    x:Name="weekTotal"
+                    FontSize="22" />
+
+                        <Label 
+                    Grid.Row="1"
+                    FontSize="22"
+                    Text="Month Total" />
+
+                        <Label 
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    x:Name="monthTotal"
+                    FontSize="22" />
+
+                        <Label 
+                    Grid.Row="2"
+                    FontSize="22"
+                    Text="Year Total" />
+
+                        <Label 
+                    Grid.Column="1"
+                    Grid.Row="2"
+                    x:Name="yearTotal"
+                    FontSize="22" />
                     </Grid>
-                </VerticalStackLayout>
+                </Border>
+                
             </VerticalStackLayout>
+
             <VerticalStackLayout Padding="5">
-                <CollectionView x:Name="codingList" MinimumWidthRequest="600">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Frame BorderColor="Gray"
+                <Border Padding="10"
+                        HorizontalOptions="Center"
+>
+                    <CollectionView x:Name="codingList" MinimumWidthRequest="400"
+                                    HorizontalOptions="CenterAndExpand">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame BorderColor="Gray"
                                    CornerRadius="5"
                                    Padding="10,0"
                                    Margin="1"
                                    HasShadow="True">
-                                <Grid ColumnDefinitions="200,200,100"
+                                    <Grid ColumnDefinitions="200,200,50"
                                     RowDefinitions="70">
-                                    <VerticalStackLayout
+
+                                        <VerticalStackLayout
                                         VerticalOptions="Center">
-                                        <Label VerticalTextAlignment="Center" Grid.Column="0" Text="{Binding Date, StringFormat='{0:yyy}'}" FontSize="12" />
-                                        <Label VerticalTextAlignment="Center" Grid.Column="0" Text="{Binding Date, StringFormat='{0:ddd,29}'}" FontSize="20" />
-                                        <Label VerticalTextAlignment="Center" Grid.Column="0" Text="{Binding Date, StringFormat='{0:MMM}'}" FontSize="12" />
-                                    </VerticalStackLayout>
-                                    <Label VerticalTextAlignment="Center" Grid.Column="1" Text="{Binding Duration}" FontSize="20"/>
-                                    <ImageButton 
-                                Source="trash.png" 
-                                Grid.Column="2" 
-                                BindingContext="{Binding Id}"  
-                                Clicked="OnDelete"
-                                MinimumHeightRequest="20"
-                                MaximumWidthRequest="35"
-                               />
-                                </Grid>
-                            </Frame>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                                            <Label 
+                                            VerticalTextAlignment="Center" 
+                                            Grid.Column="0" 
+                                            Text="{Binding Date, StringFormat='{0:yyy}'}" 
+                                            FontSize="12"
+										    FontFamily="AlbertSansLight"/>
+
+                                            <Label 
+                                            VerticalTextAlignment="Center" 
+                                            Grid.Column="0" 
+                                            Text="{Binding Date, StringFormat='{0:ddd, d}'}" 
+                                            FontSize="20"
+										    FontFamily="AlbertSansBold"/>
+
+                                            <Label 
+                                            VerticalTextAlignment="Center" 
+                                            Grid.Column="0" 
+                                            Text="{Binding Date, StringFormat='{0:MMM}'}" 
+                                            FontSize="12"
+										    FontFamily="AlbertSansMedium"/>
+                                        </VerticalStackLayout>
+
+                                        <Label 
+                                        VerticalTextAlignment="Center" 
+                                        Grid.Column="1" 
+                                        Text="{Binding Duration, StringFormat='{0:hh:mm}'}" 
+                                        FontSize="22"
+									    FontFamily="AlbertSansRegular"/>
+                                        <ImageButton 
+                                        Source="delete.png" 
+                                        Grid.Column="2" 
+                                        BindingContext="{Binding Id}"  
+                                        Clicked="OnDelete"
+                                        MinimumHeightRequest="20"
+                                        MaximumWidthRequest="25" />
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                        
+                    </CollectionView>
+                </Border>
             </VerticalStackLayout>
+			
         </HorizontalStackLayout>
     </ScrollView>
 </ContentPage>

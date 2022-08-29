@@ -48,6 +48,20 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Fonts\AlbertSans-Black.ttf" />
+	  <None Remove="Resources\Fonts\AlbertSans-Bold.ttf" />
+	  <None Remove="Resources\Fonts\AlbertSans-ExtraBold.ttf" />
+	  <None Remove="Resources\Fonts\AlbertSans-ExtraLight.ttf" />
+	  <None Remove="Resources\Fonts\AlbertSans-Light.ttf" />
+	  <None Remove="Resources\Fonts\AlbertSans-Medium.ttf" />
+	  <None Remove="Resources\Fonts\AlbertSans-Regular.ttf" />
+	  <None Remove="Resources\Fonts\AlbertSans-SemiBold.ttf" />
+	  <None Remove="Resources\Fonts\AlbertSans-Thin.ttf" />
+	  <None Remove="Resources\Images\delete.png" />
+	  <None Remove="Resources\Images\pause.png" />
+	  <None Remove="Resources\Images\play.png" />
+	  <None Remove="Resources\Images\reset.png" />
+	  <None Remove="Resources\Images\save.png" />
 	  <None Remove="Resources\Images\trash.png" />
 	</ItemGroup>
 

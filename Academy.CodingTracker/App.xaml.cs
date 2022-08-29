@@ -10,14 +10,16 @@ namespace Academy.CodingTracker;
 public partial class App : Application
 {
     public static CodingRepository CodingRepository { get; private set; }
+    public static CodingService CodingService { get; private set; }
 
-    public App(CodingRepository codingRepository)
+    public App(CodingRepository codingRepository, CodingService codingService)
     {
         InitializeComponent();
 
         MainPage = new AppShell();
 
         CodingRepository = codingRepository;
+        CodingService = codingService;
 
     }
 }
