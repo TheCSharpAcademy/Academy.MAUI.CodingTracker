@@ -235,7 +235,54 @@
                     </CollectionView>
                 </Border>
             </VerticalStackLayout>
-			
-        </HorizontalStackLayout>
+
+			<Border Padding="10"
+                        HorizontalOptions="Center">
+			<VerticalStackLayout Padding="5">
+
+					<Picker Title="Select a User"
+							SelectedIndexChanged="OnReportTypeChanged"
+                            SelectedItem="{Binding User}">
+						<Picker.ItemsSource>
+							<x:Array Type="{x:Type x:String}">
+								<x:String>Weekly</x:String>
+								<x:String>Monthly</x:String>
+								<x:String>Yearly</x:String>
+							</x:Array>
+						</Picker.ItemsSource>
+					</Picker>
+				
+					<CollectionView x:Name="reportList" MinimumWidthRequest="400"
+                                    HorizontalOptions="CenterAndExpand">
+						<CollectionView.ItemTemplate>
+							<DataTemplate>
+								<Frame BorderColor="Gray"
+                                   CornerRadius="5"
+                                   Padding="10,0"
+                                   Margin="1"
+                                   HasShadow="True">
+									<Grid ColumnDefinitions="100,100"
+                                    RowDefinitions="70">
+										<Label 
+                                        VerticalTextAlignment="Center" 
+                                        Text="{Binding Date}" 
+                                        FontSize="22"
+									    FontFamily="AlbertSansRegular"/>
+										<Label 
+                                        VerticalTextAlignment="Center" 
+                                        Grid.Column="1" 
+                                        Text="{Binding Duration}" 
+                                        FontSize="22"
+									    FontFamily="AlbertSansRegular"/>
+									</Grid>
+								</Frame>
+							</DataTemplate>
+						</CollectionView.ItemTemplate>
+					</CollectionView>
+				
+			</VerticalStackLayout>
+			</Border>
+
+		</HorizontalStackLayout>
     </ScrollView>
 </ContentPage>

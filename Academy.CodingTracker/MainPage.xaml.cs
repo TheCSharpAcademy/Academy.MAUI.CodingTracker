@@ -11,22 +11,30 @@ public partial class MainPage : ContentPage
     private int HoursToAdjust = 0;
     private DateTime codingDate = DateTime.Today;
 
+    private List<CodingReport> reportData;
+
     List<CodingDay> codingDayList;
 
     public MainPage()
     {
-        codingDayList = App.CodingRepository.GetAll();
         InitializeComponent();
+
+        codingDayList = App.CodingRepository.GetAll();
         codingList.ItemsSource = codingDayList;
 
+        reportData = App.CodingService.GetCodingReport(codingDayList, "year");
+
+        reportList.ItemsSource = reportData;
+
         PopulateTotals();
+       
     }
 
     private void PopulateTotals()
     {
-        weekTotal.Text = App.CodingService.GetTotalTime(codingDayList, "week").ToString();
-        monthTotal.Text = App.CodingService.GetTotalTime(codingDayList, "month").ToString();
-        yearTotal.Text = App.CodingService.GetTotalTime(codingDayList, "year").ToString();
+        weekTotal.Text = App.CodingService.GetTotalTime(codingDayList, "Week").ToString();
+        monthTotal.Text = App.CodingService.GetTotalTime(codingDayList, "Month").ToString();
+        yearTotal.Text = App.CodingService.GetTotalTime(codingDayList, "Year").ToString();
     }
 
     #region Timer Controls
@@ -77,7 +85,9 @@ public partial class MainPage : ContentPage
             Date = codingDate
         });
 
-        codingList.ItemsSource = App.CodingRepository.GetAll();
+        codingDayList = App.CodingRepository.GetAll();
+        codingList.ItemsSource = codingDayList;
+
         PopulateTotals();
 
         time = new TimeOnly();
@@ -160,6 +170,13 @@ public partial class MainPage : ContentPage
     }
 
     #endregion Adjust Timer
+
+    private void OnReportTypeChanged (object sender, EventArgs e)
+    {
+        Picker picker = (Picker)sender;
+        reportData = App.CodingService.GetCodingReport(codingDayList, picker.Items[picker.SelectedIndex]);
+        reportList.ItemsSource = reportData;
+    }
 
     private void OnDelete(object sender, EventArgs e)
     {
